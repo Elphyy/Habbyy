@@ -9,6 +9,10 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var (
+	db *sql.DB
+)
+
 func Setup() {
 	err := godotenv.Load()
 	if err != nil {
@@ -22,7 +26,7 @@ func Setup() {
 
 	connection := fmt.Sprintf("host=localhost port=5432 user=%s password='%s' dbname=%s sslmode=disable", user, password, dbname)
 
-	db, err := sql.Open("postgres", connection)
+	db, err = sql.Open("postgres", connection)
 	if err != nil {
 		fmt.Println("Error connecting to database -->", err)
 	}
